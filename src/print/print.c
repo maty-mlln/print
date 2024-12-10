@@ -29,7 +29,7 @@ bool run_specifier_function(params_t *params)
 {
     switch (params->specifier) {
         case 'c':
-            return c_spec(params);
+            return c_type(params);
         case 's':
             return s_spec(params);
         case 'd':
@@ -84,7 +84,7 @@ int print(const char *format, ...)
     params_t *params = init_params();
 
     va_start(params->va_args, format);
-    params->format = str_dup(format);
+    params->format = format;
     for (; format[params->index] != '\0'; params->index++) {
         if (format[params->index] == '%' && apply_format(params))
             continue;

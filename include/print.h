@@ -25,7 +25,7 @@ typedef struct params_s {
 } params_t;
 
 int p_spec(params_t *params);
-int c_spec(params_t *params);
+bool c_type(params_t *params);
 int d_spec(params_t *params);
 int u_spec(params_t *params);
 int s_spec(params_t *params);

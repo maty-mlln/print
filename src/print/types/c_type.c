@@ -1,23 +1,20 @@
 /*
 ** EPITECH PROJECT, 2024
-** c_spec.c
+** c_type.c
 ** File description:
 ** DESCRIPTION
 */
 
 #include "print.h"
 
-static void before(params_t *a)
+bool c_type(params_t *params)
 {
-    if (a->width > 0 && !is_in_flags(a, '-') && !is_in_flags(a, '0'))
-        for (int i = 0; i < a->width - 1; i++) {
-            print_char(' ');
-        }
-}
-
-int c_spec(params_t *va_args)
-{
-    before(va_args);
-    print_char(va_arg(va_args->va_args, int));
-    return 0;
+    if (params->width > 0 && !is_in_flags(params, '-') && !is_in_flags(params, '0'))
+        for (int i = 0; i < params->width - 1; i++)
+            params->str = str_add_char(params->str, ' ');
+    params->str = str_add_char(params->str, va_arg(params->va_args, int));
+    if (params->width > 0 && is_in_flags(params, '-') && !is_in_flags(params, '0'))
+        for (int i = 0; i < params->width - 1; i++)
+            params->str = str_add_char(params->str, ' ');
+    return true;
 }
