@@ -9,7 +9,8 @@
 
 static void before(int nb, params_t *params)
 {
-    if (params->width > 0 && !is_in_flags(params, '-') && !is_in_flags(params, '0'))
+    if (params->width > 0 && !is_in_flags(params, '-')
+    && !is_in_flags(params, '0'))
         for (int i = 0; i < params->width - int_len(nb); i++)
             params->str = str_add_char(params->str, ' ');
     if (is_in_flags(params, '+') && nb >= 0) {
@@ -19,7 +20,8 @@ static void before(int nb, params_t *params)
         params->str = str_add_char(params->str, ' ');
         params->width--;
     }
-    for (int i = 0; i < params->width - int_len(nb) && is_in_flags(params, '0'); i++)
+    for (int i = 0; i < params->width - int_len(nb)
+    && is_in_flags(params, '0'); i++)
         params->str = str_add_char(params->str, '0');
 }
 

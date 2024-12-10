@@ -25,7 +25,8 @@ static int define_rounded(double nbr, int preci)
 
 static void before(double nbr, params_t *params)
 {
-    if (params->width > 0 && !is_in_flags(params, '-') && !is_in_flags(params, '0'))
+    if (params->width > 0 && !is_in_flags(params, '-')
+    && !is_in_flags(params, '0'))
         for (int i = 0; i < params->width - double_len(nbr); i++)
             params->str = str_add_char(params->str, ' ');
     if (is_in_flags(params, '+') && nbr >= 0) {
@@ -35,7 +36,8 @@ static void before(double nbr, params_t *params)
         params->str = str_add_char(params->str, ' ');
         params->width--;
     }
-    for (int i = 0; i < params->width - double_len(nbr) && is_in_flags(params, '0'); i++)
+    for (int i = 0; i < params->width - double_len(nbr)
+    && is_in_flags(params, '0'); i++)
         params->str = str_add_char(params->str, '0');
 }
 
@@ -58,6 +60,7 @@ bool f_type(params_t *params)
     int int_part = (int)nbr;
     int dec_part;
 
+    params->preci = (params->preci == -1) ? 6 : params->preci;
     dec_part = define_rounded(nbr, params->preci);
     before(nbr, params);
     params->str = str_cat(params->str, int_to_str(int_part));

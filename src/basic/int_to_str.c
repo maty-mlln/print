@@ -25,5 +25,5 @@ char *int_to_str(int nbr)
         nbr = nbr / 10;
     }
     str[i] = '\0';
-    return (str_rev(str));
+    return str_rev(str);
 }

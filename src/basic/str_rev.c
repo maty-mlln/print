@@ -9,8 +9,8 @@
 
 char *str_rev(char *str)
 {
-    int i = 0;
     int j = str_len(str) - 1;
+    int i = 0;
     char tmp;
 
     while (i < j) {
@@ -20,5 +20,5 @@ char *str_rev(char *str)
         i++;
         j--;
     }
-    return (str);
+    return str;
 }
