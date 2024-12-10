@@ -9,7 +9,7 @@
 
 const char flags[] = {'0', '-', ' ', '+', '*'};
 
-static int is_allowed_number(char c)
+static int is_valid_nbr(char c)
 {
     if (c >= '1' && c <= '9') {
         return 0;
@@ -17,7 +17,7 @@ static int is_allowed_number(char c)
     return 1;
 }
 
-static int is_a_valid_flag(char c)
+static int is_flag(char c)
 {
     for (int i = 0; flags[i] != '\0'; i++) {
         if (c == flags[i]) {
@@ -42,8 +42,8 @@ void find_flag(params_t *params)
     int list_index = 0;
 
     for (int j = 1; params->format[params->index + j] != '\0'
-        && is_allowed_number(params->format[params->index + j]); j++) {
-        if (is_a_valid_flag(params->format[params->index + j])) {
+        && is_valid_nbr(params->format[params->index + j]); j++) {
+        if (is_flag(params->format[params->index + j])) {
             params->flag[list_index] = params->format[params->index + j];
             list_index++;
         }
