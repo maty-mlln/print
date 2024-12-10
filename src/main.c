@@ -9,11 +9,16 @@
 
 int main(void)
 {
+    print("--------------------\n");
     print("Hello World!\n");
-    print("%s\n", "Hello World!");
-    print("%d\n", 42);
-    print("%f\n", 42.42);
-    print("%c\n", 'c');
-    print("%s %d %f %c\n", "Hello World!", 42, 42.42, 'c');
+    print("--------------------\n");
+    print("%s Test 1\n", "Hello World!");
+    print("--------------------\n");
+    print("%023d Test 2\n", 42);
+    print("--------------------\n");
+    print("%-23f Test 3\n", 42.42);
+    print("--------------------\n");
+    print("%c Test 4\n", 'c');
+    print("--------------------\n");
     return 0;
 }

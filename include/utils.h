@@ -27,6 +27,7 @@ bool is_digits(char *str);
 char *str_rev(char *str);
 char *str_dup(char const *src);
 int str_cmp(const char *str1, const char *str2);
+char *str_cat(char *dest, char *src);
 
 // Printers
 int print(const char *format, ...);

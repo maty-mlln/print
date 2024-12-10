@@ -9,6 +9,7 @@
     #define PRINT_H
 
     #include "utils.h"
+    #include <stdio.h>
 
 typedef struct params_s {
     int index;
