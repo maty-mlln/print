@@ -30,6 +30,6 @@ re: fclean all
 debug:
 	$(CC) -g3 -o $(NAME) $(SRC) $(CFLAGS)
 	clear
-	-@valgrind ./$(NAME) 2> valgrind.log
+	-@valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME) 2> valgrind.log
 	cat valgrind.log && rm valgrind.log
 	$(MAKE) fclean

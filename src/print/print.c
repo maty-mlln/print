@@ -20,7 +20,6 @@ static params_t *init_params(void)
     params->flags = str_dup("");
     params->width = 0;
     params->preci = -1;
-    params->length = NULL;
     params->specifier = 0;
     return params;
 }
@@ -75,6 +74,13 @@ char *str_add_char(char *str, char c)
     return new_str;
 }
 
+static void free_params(params_t *params)
+{
+    free(params->str);
+    free(params->flags);
+    free(params);
+}
+
 int print(const char *format, ...)
 {
     params_t *params = init_params();
@@ -88,6 +94,6 @@ int print(const char *format, ...)
     }
     print_str(params->str);
     va_end(params->va_args);
-    free(params);
+    free_params(params);
     return 0;
 }

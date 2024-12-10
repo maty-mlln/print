@@ -20,7 +20,6 @@ typedef struct params_s {
     char *flags;
     int width;
     int preci;
-    char *length;
     char specifier;
 } params_t;
 
