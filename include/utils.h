@@ -18,12 +18,14 @@ char *llint_to_base(long long int nbr, char const *base);
 char *int_to_base(int nbr, char const *base);
 char *uint_to_base(unsigned int nbr, char const *base);
 int str_to_int(char *str);
+char *int_to_str(int nb);
+char *uint_to_str(unsigned int nb);
 
 // ASCII Identifiers
 bool is_digit(const char c);
 bool is_digits(char *str);
 
-// String manipulators
+// String Manipulators
 char *str_rev(char *str);
 char *str_dup(char const *src);
 int str_cmp(const char *str1, const char *str2);

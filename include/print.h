@@ -24,13 +24,12 @@ typedef struct params_s {
     char specifier;
 } params_t;
 
-int p_spec(params_t *params);
 bool c_type(params_t *params);
-int d_spec(params_t *params);
-int u_spec(params_t *params);
-int s_spec(params_t *params);
-int f_spec(params_t *params);
-int p_spec(params_t *params);
+bool d_type(params_t *params);
+bool u_type(params_t *params);
+bool s_type(params_t *params);
+bool f_type(params_t *params);
+bool p_type(params_t *params);
 
 void parse_spec(params_t *params);
 bool parse_flags(params_t *params);

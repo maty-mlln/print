@@ -6,7 +6,7 @@
 ##
 
 MAKEFLAGS += -B -s
-CFLAGS = -W -Wall -Wextra -I./include
+CFLAGS = -W -Wall -Wextra -Werror -I./include
 
 SRC = $(shell find src -name "*.c")
 

@@ -7,35 +7,17 @@
 
 #include "print.h"
 
-static void my_put_str(char *str, params_t *a)
-{
-    a->preci = (a->preci == -1) ? str_len(str) : a->preci;
-    for (int i = 0; str[i] != '\0' && i < a->preci; i++) {
-        print_char(str[i]);
-    }
-}
-
-static char *is_null(char *str)
-{
-    if (str == NULL)
-        str = str_dup("(null)");
-    return str;
-}
-
-static void before(char *str, params_t *a)
-{
-    if (!is_in_flags(a, '-') && !is_in_flags(a, '0'))
-        for (int i = 0; i < a->width - str_len(str); i++) {
-            print_char(' ');
-        }
-}
-
-int s_spec(params_t *params)
+bool s_type(params_t *params)
 {
     char *str = va_arg(params->va_args, char *);
 
-    str = is_null(str);
-    before(str, params);
-    my_put_str(str, params);
-    return 0;
+    if (str == NULL) {
+        str = str_dup("(null)");
+        return true;
+    }
+    if (!is_in_flags(params, '-') && !is_in_flags(params, '0'))
+        for (int i = 0; i < params->width - str_len(str); i++)
+            params->str = str_add_char(params->str, ' ');
+    params->str = str_cat(params->str, str);
+    return true;
 }

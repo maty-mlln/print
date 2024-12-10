@@ -7,46 +7,43 @@
 
 #include "print.h"
 
-static void before(int nb, params_t *a)
+static void before(int nb, params_t *params)
 {
-    if (a->width > 0 && !is_in_flags(a, '-') && !is_in_flags(a, '0'))
-        for (int i = 0; i < a->width - int_len(nb); i++) {
-            print_char(' ');
-        }
-    if (is_in_flags(a, '+') && nb >= 0) {
-        print_char('+');
-        a->width--;
-    } else if (is_in_flags(a, ' ') && nb >= 0) {
-        print_char(' ');
-        a->width--;
+    if (params->width > 0 && !is_in_flags(params, '-') && !is_in_flags(params, '0'))
+        for (int i = 0; i < params->width - int_len(nb); i++)
+            params->str = str_add_char(params->str, ' ');
+    if (is_in_flags(params, '+') && nb >= 0) {
+        params->str = str_add_char(params->str, '+');
+        params->width--;
+    } else if (is_in_flags(params, ' ') && nb >= 0) {
+        params->str = str_add_char(params->str, ' ');
+        params->width--;
     }
-    for (int i = 0; i < a->width - int_len(nb) && is_in_flags(a, '0'); i++) {
-        print_char('0');
-    }
+    for (int i = 0; i < params->width - int_len(nb) && is_in_flags(params, '0'); i++)
+        params->str = str_add_char(params->str, '0');
 }
 
-static void precision(int nb, params_t *params)
+static void preci(int nb, params_t *params)
 {
-    if (params->preci != -1)
-        for (int i = 0; i < params->preci - int_len(nb); i++) {
-            print_char('0');
-        }
+    if (params->preci)
+        for (int i = 0; i < params->preci - int_len(nb); i++)
+            params->str = str_add_char(params->str, '0');
 }
 
 static void after(int nb, params_t *params)
 {
     if (params->width > 0 && is_in_flags(params, '-'))
-        for (int i = 0; i < params->width - int_len(nb); i++) {
-            print_char(' ');
-        }
+        for (int i = 0; i < params->width - int_len(nb); i++)
+            params->str = str_add_char(params->str, ' ');
 }
 
-int d_spec(params_t *params)
+bool d_type(params_t *params)
 {
     int nb = va_arg(params->va_args, int);
 
     before(nb, params);
-    precision(nb, params);
+    params->str = str_cat(params->str, int_to_str(nb));
+    preci(nb, params);
     after(nb, params);
-    return 0;
+    return true;
 }

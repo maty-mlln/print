@@ -24,7 +24,7 @@ void parse_preci(params_t *params)
     char precision[params->params_len - 1];
 
     for (int j = 1; j < params->params_len; j++)
-        if (params->format[params->index + j] == '.' && !params->preci) {
+        if (params->format[params->index + j] == '.' && params->preci == -1) {
             extract_precision(params, precision, params->index + j + 1);
             return;
         }

@@ -1,15 +1,14 @@
 /*
 ** EPITECH PROJECT, 2024
-** p_spec
+** p_type
 ** File description:
 ** DESCRIPTION
 */
 
 #include "print.h"
 
-int p_spec(params_t *params)
+bool p_type(params_t *params)
 {
-    (void)params;
-    print_char('%');
-    return 1;
+    params->str = str_add_char(params->str, '%');
+    return true;
 }

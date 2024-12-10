@@ -19,7 +19,7 @@ static params_t *init_params(void)
     params->params_len = 0;
     params->flags = str_dup("");
     params->width = 0;
-    params->preci = 0;
+    params->preci = -1;
     params->length = NULL;
     params->specifier = 0;
     return params;
@@ -31,19 +31,15 @@ bool run_specifier_function(params_t *params)
         case 'c':
             return c_type(params);
         case 's':
-            return s_spec(params);
+            return s_type(params);
         case 'd':
-            return d_spec(params);
-        case 'i':
-            return d_spec(params);
+            return d_type(params);
         case 'u':
-            return u_spec(params);
-        case 'p':
-            return p_spec(params);
+            return u_type(params);
         case 'f':
-            return f_spec(params);
+            return f_type(params);
         case '%':
-            return p_spec(params);
+            return p_type(params);
         default:
             return 0;
     }

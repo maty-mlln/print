@@ -16,7 +16,7 @@ int main(void)
     print("--------------------\n");
     print("%010d Test 2\n", 42);
     print("--------------------\n");
-    print("%-23f Test 3\n", 42.42);
+    print("%f Test 3\n", 42.42);
     print("--------------------\n");
     print("%c Test 4\n", 'c');
     print("--------------------\n");

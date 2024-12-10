@@ -7,30 +7,14 @@
 
 #include "print.h"
 
-static int my_put_float_va2(int d, int precision)
+static int define_rounded(double nbr, int preci)
 {
-    int i = 0;
-    char digits[20];
-
-    for (int j = 0; j < precision; j++) {
-        digits[j] = d % 10 + '0';
-        d /= 10;
-    }
-    for (int j = precision - 1; j >= 0; j--) {
-        print_char(digits[j]);
-        i++;
-    }
-    return i;
-}
-
-static int define_rounded(double f, int precision)
-{
-    double fractional = f - (int)f;
+    double fractional = nbr - (int)nbr;
     double multiplier = 1;
     int rounded;
     int d;
 
-    for (int j = 0; j < precision; j++)
+    for (int j = 0; j < preci; j++)
         multiplier *= 10;
     rounded = fractional * multiplier + 0.5;
     d = (int)rounded;
@@ -39,18 +23,45 @@ static int define_rounded(double f, int precision)
     return d;
 }
 
-int f_spec(params_t *params)
+static void before(double nbr, params_t *params)
 {
-    double f = va_arg(params->va_args, double);
-    int i = (int)f;
-    int precision = (params->preci != -1) ? params->preci : 6;
-    int d = define_rounded(f, precision);
-
-    print_int(i);
-    if (precision == 0) {
-        my_put_float_va2(d, precision);
-        return int_len(i);
+    if (params->width > 0 && !is_in_flags(params, '-') && !is_in_flags(params, '0'))
+        for (int i = 0; i < params->width - double_len(nbr); i++)
+            params->str = str_add_char(params->str, ' ');
+    if (is_in_flags(params, '+') && nbr >= 0) {
+        params->str = str_add_char(params->str, '+');
+        params->width--;
+    } else if (is_in_flags(params, ' ') && nbr >= 0) {
+        params->str = str_add_char(params->str, ' ');
+        params->width--;
     }
-    print_char('.');
-    return my_put_float_va2(d, precision) + int_len(i) + 1;
+    for (int i = 0; i < params->width - double_len(nbr) && is_in_flags(params, '0'); i++)
+        params->str = str_add_char(params->str, '0');
+}
+
+static void format_dec_part(int dec_part, params_t *params)
+{
+    char *dec_str = int_to_str(dec_part);
+    int len = str_len(dec_str);
+
+    for (int i = 0; i < params->preci; i++) {
+        if (i < len)
+            params->str = str_add_char(params->str, dec_str[i]);
+        else
+            params->str = str_add_char(params->str, '0');
+    }
+}
+
+bool f_type(params_t *params)
+{
+    double nbr = va_arg(params->va_args, double);
+    int int_part = (int)nbr;
+    int dec_part;
+
+    dec_part = define_rounded(nbr, params->preci);
+    before(nbr, params);
+    params->str = str_cat(params->str, int_to_str(int_part));
+    params->str = str_add_char(params->str, '.');
+    format_dec_part(dec_part, params);
+    return true;
 }
