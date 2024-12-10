@@ -11,10 +11,9 @@ static bool is_specifier(char c)
 {
     const char specs[] = {'c', 'd', 'i', 's', 'f', '%', 'u'};
 
-    for (int i = 0; specs[i] != '\0'; i++) {
+    for (int i = 0; specs[i] != '\0'; i++)
         if (c == specs[i])
             return true;
-    }
     return false;
 }
 

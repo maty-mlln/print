@@ -43,7 +43,7 @@ int f_spec(params_t *params)
 {
     double f = va_arg(params->va_args, double);
     int i = (int)f;
-    int precision = (params->precision != -1) ? params->precision : 6;
+    int precision = (params->preci != -1) ? params->preci : 6;
     int d = define_rounded(f, precision);
 
     print_int(i);

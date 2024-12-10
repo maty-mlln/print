@@ -17,9 +17,9 @@ typedef struct params_s {
     char *str;
     int params_len;
     va_list va_args;
-    char *flag;
+    char *flags;
     int width;
-    int precision;
+    int preci;
     char *length;
     char specifier;
 } params_t;
@@ -32,11 +32,12 @@ int s_spec(params_t *params);
 int f_spec(params_t *params);
 int p_spec(params_t *params);
 
-void find_width_loop(const char *format, int i, params_t *params, char *width);
-int is_in_flags(params_t *params, char c);
 void parse_spec(params_t *params);
-void find_flag(params_t *params);
-void find_width(params_t *params);
-void find_precision(params_t *params);
+bool parse_flags(params_t *params);
+void parse_width(params_t *params);
+void parse_preci(params_t *params);
+
+bool is_in_flags(params_t *params, char c);
+char *str_add_char(char *str, char c);
 
 #endif /* !PRINT_H */

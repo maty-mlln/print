@@ -9,8 +9,8 @@
 
 static void my_put_str(char *str, params_t *a)
 {
-    a->precision = (a->precision == -1) ? str_len(str) : a->precision;
-    for (int i = 0; str[i] != '\0' && i < a->precision; i++) {
+    a->preci = (a->preci == -1) ? str_len(str) : a->preci;
+    for (int i = 0; str[i] != '\0' && i < a->preci; i++) {
         print_char(str[i]);
     }
 }

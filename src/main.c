@@ -14,11 +14,15 @@ int main(void)
     print("--------------------\n");
     print("%s Test 1\n", "Hello World!");
     print("--------------------\n");
-    print("%023d Test 2\n", 42);
+    print("%010d Test 2\n", 42);
     print("--------------------\n");
     print("%-23f Test 3\n", 42.42);
     print("--------------------\n");
     print("%c Test 4\n", 'c');
+    print("--------------------\n");
+    print("%% Test 5\n");
+    print("--------------------\n");
+    print("%.2f Test 6\n", 42.4242);
     print("--------------------\n");
     return 0;
 }

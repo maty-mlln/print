@@ -27,8 +27,8 @@ static void before(int nb, params_t *a)
 
 static void precision(int nb, params_t *params)
 {
-    if (params->precision != -1)
-        for (int i = 0; i < params->precision - int_len(nb); i++) {
+    if (params->preci != -1)
+        for (int i = 0; i < params->preci - int_len(nb); i++) {
             print_char('0');
         }
 }
