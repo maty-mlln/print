@@ -9,15 +9,13 @@ MAKEFLAGS += -B -s
 CFLAGS = -W -Wall -Wextra -I./include
 
 SRC = $(shell find src -name "*.c")
-OBJ = $(SRC:.c=.o)
 
-NAME = ../libutils.a
+NAME = print
 
 all: $(NAME)
 
 $(NAME):
-	$(CC) -c $(SRC) $(CFLAGS)
-	ar -rc $(NAME) $(OBJ)
+	$(CC) -o $(NAME) $(SRC) $(CFLAGS)
 	$(MAKE) clean
 
 clean:
@@ -28,3 +26,10 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+debug:
+	$(CC) -g3 -o $(NAME) $(SRC) $(CFLAGS)
+	clear
+	-@valgrind ./$(NAME) 2> valgrind.log
+	cat valgrind.log && rm valgrind.log
+	$(MAKE) fclean

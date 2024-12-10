@@ -21,16 +21,16 @@ void find_precision_loop(const char *format, int index,
     }
 }
 
-void find_precision(const char *format, int i, params_t *struct_args)
+void find_precision(params_t *params)
 {
     char precision[10];
     int index;
 
-    for (int j = 1; j < struct_args->params_len; j++) {
-        if (format[i + j] == '.' && struct_args->precision == -1) {
-            index = j + i;
-            struct_args->precision = 0;
-            find_precision_loop(format, index, struct_args, precision);
+    for (int j = 1; j < params->params_len; j++) {
+        if (params->format[params->index + j] == '.' && params->precision == -1) {
+            index = j + params->index;
+            params->precision = 0;
+            find_precision_loop(params->format, index, params, precision);
         }
     }
 }

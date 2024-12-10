@@ -22,22 +22,21 @@ void find_width_loop(const char *format, int index,
     }
 }
 
-void find_width(const char *format, int i,
-    params_t *struct_args)
+void find_width(params_t *params)
 {
     char width[10];
     int index;
 
-    for (int j = 1; j < struct_args->params_len; j++) {
-        if (format[i + j] == '*' && struct_args->width == 0) {
-            struct_args->width = va_arg(struct_args->args, int);
+    for (int j = 1; j < params->params_len; j++) {
+        if (params->format[params->index + j] == '*' && params->width == 0) {
+            params->width = va_arg(params->va_args, int);
             j++;
             continue;
         }
-        if (is_digit(format[i + j]) && format[i + j - 1] != '.'
-            && struct_args->width == 0 && format[i + j] != '0') {
-            index = j + i;
-            find_width_loop(format, index, struct_args, width);
+        if (is_digit(params->format[params->index + j]) && params->format[params->index + j - 1] != '.'
+            && params->width == 0 && params->format[params->index + j] != '0') {
+            index = j + params->index;
+            find_width_loop(params->format, index, params, width);
         }
     }
 }

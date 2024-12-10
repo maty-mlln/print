@@ -12,7 +12,6 @@ static void my_put_str(char *str, params_t *a)
     a->precision = (a->precision == -1) ? str_len(str) : a->precision;
     for (int i = 0; str[i] != '\0' && i < a->precision; i++) {
         print_char(str[i]);
-        a->printed_chars_count++;
     }
 }
 
@@ -28,13 +27,12 @@ static void before(char *str, params_t *a)
     if (!is_in_flags(a, '-') && !is_in_flags(a, '0'))
         for (int i = 0; i < a->width - str_len(str); i++) {
             print_char(' ');
-            a->printed_chars_count++;
         }
 }
 
 int s_spec(params_t *params)
 {
-    char *str = va_arg(params->args, char *);
+    char *str = va_arg(params->va_args, char *);
 
     str = is_null(str);
     before(str, params);

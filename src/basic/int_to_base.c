@@ -19,5 +19,5 @@ char *int_to_base(int nbr, char const *base)
         i++;
     }
     result[i] = '\0';
-    return rev_str(result);
+    return str_rev(result);
 }

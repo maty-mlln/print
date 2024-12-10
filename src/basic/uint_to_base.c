@@ -19,5 +19,5 @@ char *uint_to_base(unsigned int nbr, char const *base)
         i++;
     }
     result[i] = '\0';
-    return rev_str(result);
+    return str_rev(result);
 }

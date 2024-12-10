@@ -7,7 +7,7 @@
 
 #include "print.h"
 
-int u_spec(params_t *args)
+int u_spec(params_t *va_args)
 {
-    return print_unsigned_int(va_arg(args->args, unsigned int));
+    return print_unsigned_int(va_arg(va_args->va_args, unsigned int));
 }

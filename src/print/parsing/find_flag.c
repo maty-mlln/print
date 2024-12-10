@@ -7,7 +7,7 @@
 
 #include "print.h"
 
-const char flags[] = {'#', '0', '-', ' ', '+', '*'};
+const char flags[] = {'0', '-', ' ', '+', '*'};
 
 static int is_allowed_number(char c)
 {
@@ -37,14 +37,14 @@ int is_in_flags(params_t *struct_args, char c)
     return 0;
 }
 
-void find_flag(const char *format, int i, params_t *struct_args)
+void find_flag(params_t *params)
 {
     int list_index = 0;
 
-    for (int j = 1; format[i + j] != '\0'
-        && is_allowed_number(format[i + j]); j++) {
-        if (is_a_valid_flag(format[i + j])) {
-            struct_args->flag[list_index] = format[i + j];
+    for (int j = 1; params->format[params->index + j] != '\0'
+        && is_allowed_number(params->format[params->index + j]); j++) {
+        if (is_a_valid_flag(params->format[params->index + j])) {
+            params->flag[list_index] = params->format[params->index + j];
             list_index++;
         }
     }

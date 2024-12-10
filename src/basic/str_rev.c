@@ -1,13 +1,13 @@
 /*
 ** EPITECH PROJECT, 2024
-** rev_str.c
+** str_rev.c
 ** File description:
 ** DESCRIPTION
 */
 
 #include "utils.h"
 
-char *rev_str(char *str)
+char *str_rev(char *str)
 {
     int i = 0;
     int j = str_len(str) - 1;

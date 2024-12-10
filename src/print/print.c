@@ -7,82 +7,76 @@
 
 #include "print.h"
 
-const print_t type[] = {
-    {'c', c_spec},
-    {'d', d_spec},
-    {'i', d_spec},
-    {'s', s_spec},
-    {'f', f_spec},
-    {'F', f_spec},
-    {'%', percent_spec},
-    {'u', u_spec},
-    {'o', o_spec},
-    {'p', p_spec},
-    {'x', x_spec},
-    {'X', x_spec},
-    {'e', va_my_put_scinote},
-    {'E', va_my_put_scinote},
-    {'n', va_my_put_printed_chars_count},
-    {'g', va_my_put_scinote_auto},
-    {'G', va_my_put_scinote_auto},
-};
-
-int run_specifier_function(params_t *params)
+static params_t *init_params(void)
 {
-    for (int j = 0; type[j].specifier != 0; j++) {
-        if (type[j].specifier == params->specifier) {
-            return (type[j].function(params));
-        }
-    }
-    return 0;
-}
+    params_t *params = malloc(sizeof(params_t));
 
-void define_struct(params_t *params)
-{
-    params->flag = malloc(sizeof(char) * 6);
-    for (int i = 0; i < 6; i++) {
-        params->flag[i] = '\0';
-    }
+    if (params == NULL)
+        return NULL;
+    params->index = 0;
+    params->format = NULL;
+    params->str = NULL;
+    params->params_len = 0;
+    params->flag = NULL;
     params->width = 0;
-    params->precision = -1;
-    params->length = malloc(sizeof(char) * 2);
-    params->length[0] = '\0';
-    params->specifier = '\0';
+    params->precision = 0;
+    params->length = NULL;
+    params->specifier = 0;
+    return params;
 }
 
-void apply_format(const char *format, int i, params_t *params)
+bool run_specifier_function(params_t *params)
 {
-    define_struct(params);
-    find_specifier(format, i, params);
-    if (params->params_len > 1) {
-        find_flag(format, i, params);
-        find_width(format, i, params);
-        find_precision(format, i, params);
-        find_length_modifier(format, i, params);
+    switch (params->specifier) {
+        case 'c':
+            return c_spec(params);
+        case 's':
+            return s_spec(params);
+        case 'd':
+            return d_spec(params);
+        case 'i':
+            return d_spec(params);
+        case 'u':
+            return u_spec(params);
+        case 'p':
+            return p_spec(params);
+        case 'f':
+            return f_spec(params);
+        case '%':
+            return p_spec(params);
+        default:
+            return 0;
     }
-    params->printed_chars_count += run_specifier_function(params);
+}
+
+#include <stdio.h>
+
+static void apply_format(params_t *params)
+{
+    params->params_len = 0;
+    parse_spec(params);
+    if (params->params_len > 2) {
+        find_flag(params);
+        find_width(params);
+        find_precision(params);
+    }
+    // run_specifier_function(params);
 }
 
 int print(const char *format, ...)
 {
-    int temp = 0;
-    params_t *params = malloc(sizeof(params_t));
+    params_t *params = init_params();
 
-    if (format[0] == '%' && format[1] == '\0')
-        return -1;
-    va_start(params->args, format);
-    params->printed_chars_count = 0;
-    for (int i = 0; format[i] != '\0'; i++) {
-        params->params_len = 0;
-        if (format[i] == '%') {
-            apply_format(format, i, params);
-            i += params->params_len;
-            continue;
-        }
-        print_char(format[i]);
-        params->printed_chars_count++;
+    va_start(params->va_args, format);
+    params->format = format;
+    for (; format[params->index] != '\0'; params->index++) {
+        if (format[params->index] == '%') {
+            apply_format(params);
+            params->index += params->params_len;
+        } else
+            print_char(format[params->index]);
     }
-    temp = params->printed_chars_count;
+    va_end(params->va_args);
     free(params);
-    return temp;
+    return 0;
 }

@@ -41,7 +41,7 @@ static int define_rounded(double f, int precision)
 
 int f_spec(params_t *params)
 {
-    double f = va_arg(params->args, double);
+    double f = va_arg(params->va_args, double);
     int i = (int)f;
     int precision = (params->precision != -1) ? params->precision : 6;
     int d = define_rounded(f, precision);
