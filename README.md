@@ -1,2 +1,2 @@
-# print
-Print lib function in C based on "printf".
+# PRINT
+A function for my personal library based on "printf".
