@@ -26,8 +26,11 @@ bool is_digit(const char c);
 bool is_digits(char *str);
 
 // String Manipulators
+char *str_cpy(char *dest, char *src);
+int sprint(char *str, const char *format, ...);
+char *str_add_char(char *str, char c);
 char *str_rev(char *str);
-char *str_dup(char const *src);
+char *str_dup(char *src);
 int str_cmp(const char *str1, const char *str2);
 char *str_cat(char *dest, char *src);
 

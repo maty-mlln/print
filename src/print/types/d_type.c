@@ -42,9 +42,11 @@ static void after(int nb, params_t *params)
 bool d_type(params_t *params)
 {
     int nb = va_arg(params->va_args, int);
+    char *nb_str = int_to_str(nb);
 
     before(nb, params);
-    params->str = str_cat(params->str, int_to_str(nb));
+    params->str = str_cat(params->str, nb_str);
+    free(nb_str);
     preci(nb, params);
     after(nb, params);
     return true;

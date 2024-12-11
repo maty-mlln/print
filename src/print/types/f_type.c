@@ -52,18 +52,21 @@ static void format_dec_part(int dec_part, params_t *params)
         else
             params->str = str_add_char(params->str, '0');
     }
+    free(dec_str);
 }
 
 bool f_type(params_t *params)
 {
     double nbr = va_arg(params->va_args, double);
     int int_part = (int)nbr;
+    char *int_part_str = int_to_str(int_part);
     int dec_part;
 
     params->preci = (params->preci == -1) ? 6 : params->preci;
     dec_part = define_rounded(nbr, params->preci);
     before(nbr, params);
-    params->str = str_cat(params->str, int_to_str(int_part));
+    params->str = str_cat(params->str, int_part_str);
+    free(int_part_str);
     params->str = str_add_char(params->str, '.');
     format_dec_part(dec_part, params);
     return true;

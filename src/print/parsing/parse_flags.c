@@ -26,6 +26,8 @@ static bool is_flag(char c)
 
 bool is_in_flags(params_t *params, char c)
 {
+    if (params->flags == NULL)
+        return false;
     for (int i = 0; params->flags[i] != '\0'; i++) {
         if (params->flags[i] == c) {
             return true;

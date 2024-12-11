@@ -15,6 +15,7 @@ char *str_cat(char *dest, char *src)
 
     if (new_str == NULL)
         return NULL;
+    dest = dest == NULL ? "" : dest;
     while (dest[i] != '\0') {
         new_str[i] = dest[i];
         i++;

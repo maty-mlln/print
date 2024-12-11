@@ -24,5 +24,8 @@ int main(void)
     print("--------------------\n");
     print("%.2f Test 6\n", 42.4242);
     print("--------------------\n");
+    char str[100];
+    sprint(str, "Test : %d", 42);
+    print("%s\n", str);
     return 0;
 }
