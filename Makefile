@@ -7,6 +7,7 @@
 
 MAKEFLAGS += -B -s
 CFLAGS = -W -Wall -Wextra -Werror -I./include
+VALFLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes -s
 
 SRC = $(shell find src -name "*.c")
 
@@ -37,6 +38,6 @@ debug:
 fulldebug:
 	$(CC) -g3 -o $(NAME) $(SRC) $(CFLAGS)
 	clear
-	-@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) 2> v.log
+	-@valgrind $(VALFLAGS) ./$(NAME) 2> v.log
 	cat v.log && rm v.log
 	$(MAKE) fclean
