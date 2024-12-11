@@ -61,9 +61,9 @@ static bool apply_format(params_t *params)
 
 static void free_params(params_t *params)
 {
-    va_end(params->va_args);
     free(params->str);
     free(params->flags);
+    va_end(params->va_args);
     free(params);
 }
 
