@@ -22,7 +22,7 @@ static void before(int nb, params_t *params)
     }
     for (int i = 0; i < params->width - int_len(nb)
     && is_in_flags(params, '0'); i++)
-        params->str = str_add_char(params->str, '0');
+        str_add_char(params->str, '0');
 }
 
 static void preci(int nb, params_t *params)

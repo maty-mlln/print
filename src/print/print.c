@@ -49,8 +49,7 @@ static bool apply_format(params_t *params)
     params->params_len = 0;
     parse_spec(params);
     if (params->params_len > 2) {
-        if (!parse_flags(params))
-            return false;
+        parse_flags(params);
         parse_width(params);
         parse_preci(params);
     }

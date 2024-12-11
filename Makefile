@@ -37,6 +37,6 @@ debug:
 fulldebug:
 	$(CC) -g3 -o $(NAME) $(SRC) $(CFLAGS)
 	clear
-	-@valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME) 2> v.log
+	-@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) 2> v.log
 	cat v.log && rm v.log
 	$(MAKE) fclean

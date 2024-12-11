@@ -28,6 +28,7 @@ int main(void)
     sprint(str, "Test : %d", 42);
     print("%s\n", str);
     print("--------------------\n");
+    print("Test : %23dHey\n", 23234);
     print("\n");
     return 0;
 }
